@@ -12,6 +12,13 @@
         <h1>Create</h1>
         <a  href="{{ route('categories.index') }}" class="btn btn-dark">Back</a>
 
+        @if (session('success'))
+            <div class="alert alert-success mt-3">
+                {{ session('success') }}
+            </div>
+        
+        @endif
+
         <form action="{{ route('categories.store') }}" method="POST">
         @csrf
         <div class="mb-3">

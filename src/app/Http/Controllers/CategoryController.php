@@ -28,19 +28,23 @@ class CategoryController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    {   
+        $validated_data = $request->validate([
+            'name' => 'required|max:100',
+            'color' => 'nullable|max:7',
+            'description' => 'nullable|max:255'
+        ]);
+
+        /*
         $name = $request->input('name');
         $color = $request->input('color');
         $description = $request->input('description');
         // Category modelini kullanarak yeni kategori olusturuyoruz
+        */
         
-        Category::create([
-            'name' => $name,
-            'color' => $color,
-            'description' => $description
-        ]);
+        Category::create($validated_data);
 
-        return redirect(route('categories.index'));
+        return redirect()->back()->with('success', 'Category created succesfly.');
     }
 
     /**
