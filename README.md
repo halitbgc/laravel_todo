@@ -51,41 +51,45 @@ DB_DATABASE=/var/www/html/database/database.sqlite
 php artisan migrate
 ```
 ## 📂 Klasör Yapısı (Özet)
+
+```text
+nginx
+├── default.conf
 src
 ├── app/
-│   ├── Enums/                    → Todo enum sınıfları
+│   ├── Enums/                   → Todo enum sınıfları
 │   ├── Http/
-│   │   ├── Controllers/          → Auth, Todo, Category
-│   │   ├── Middleware/           → Auth middleware'ları
-│   │   └── Requests/             → Form validation sınıfları
-│   ├── Models/                   → User, Todo, Category
+│   │   ├── Controllers/         → Auth, Todo, Category
+│   │   ├── Middleware/          → Auth middleware'ları
+│   │   └── Requests/            → Form validation sınıfları
+│   ├── Models/                  → User, Todo, Category
 │   └── Providers/
 │
 ├── resources/
 │   ├── views/
-│   │   ├── layouts/              → Temel layout blade dosyası
+│   │   ├── layouts/             → Temel layout blade dosyası
 │   │   ├── includes/            → Partial view dosyaları
 │   │   └── pages/
-│   │       ├── auth/            → Giriş / Kayıt formları
-│   │       ├── categories/      → Kategori yönetimi
-│   │       └── todos/           → Todo listesi
-│   └── js/                      → JS dosyaları (vite ile)
+│   │       ├── auth/           → Giriş / Kayıt formları
+│   │       ├── categories/     → Kategori yönetimi
+│   │       └── todos/          → Todo listesi
+│   └── js/                     → JS dosyaları (vite ile)
 │
 ├── routes/
-│   ├── web.php                  → Web route'ları
+│   ├── web.php                 → Web route'ları
 │   └── console.php
 │
 ├── database/
-│   ├── migrations/              → Veritabanı yapısı
+│   ├── migrations/             → Veritabanı yapısı
 │   ├── seeders/
 │   └── factories/
-│
-├── docker-compose.yml
-├── Dockerfile
 ├── vite.config.js
 ├── package.json
 ├── composer.json
-└── README.md
+docker-compose.yml
+Dockerfile
+README.md
+```
 
 ## 🔐 Auth Sistemi
 Laravel’in kendi session tabanlı Auth yapısı kullanılır:
