@@ -1,22 +1,25 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+Route::middleware('auth')->group(function () {
+    Route::resource('/categories', CategoryController::class);
+    Route::resource('/todos', TodoController::class);
+    Route::put('/todos/{todo}/check', [TodoController::class, 'check'])->name('todos.check');
 });
 
-// alttaki kodda direkt viewi donduruyor ancak bizim controller kullanmamiz gerekiyor ise
-// function vermek yerine controller daki fonksiyonu verebiliriz kullanabiliriz
-Route::get('/categories', [CategoryController::class,'index'])->name('categories.index');
-/*
-Route::get('/categories', function () {
-    return view('categories.index');
+Route::middleware('guest')->group(function () {
+    Route::get('/', [AuthenticatedSessionController::class, 'create']);
+    Route::get('/login', [AuthenticatedSessionController::class, 'create'])->name('login.create');
+    Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login.store');
+    Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('login.logout');
+    
+    Route::get('/register', [RegisteredUserController::class, 'create'])->name('register.create');
+    Route::post('/register', [RegisteredUserController::class, 'store'])->name('register.store');
 });
-*/
-
-Route::get('categories/create', [CategoryController::class, 'create'])->name('categories.create');
-Route::post('categories', [CategoryController::class,'store'])->name('categories.store');
-Route::get('categories/{category}', [CategoryController::class,'show'])->name('categories.show');
-Route::delete('categories/{category}', [CategoryController::class,'destroy'])->name('categories.destroy');
